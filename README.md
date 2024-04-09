@@ -19,6 +19,13 @@ CSS
 JavaScript
 Open Food Facts API
 
+Setup Instructions:
+Clone the repository to local machine: git clone git@github.com:CISSEJACKA/PHASE--1-PROJECT.git
+Navigate to the project directory
+Open Food Facts API
+Install any dependencies required to make API requests: npm install
+Open index.html in your web browser to use the application.
+
 Usage:
 Add a new supplement:
 Enter the name of the supplement in the input field.
