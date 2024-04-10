@@ -42,28 +42,42 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const supplementList = document.getElementById('supplement-list');
+
+            // First event listener: Click event on supplement element
+            supplementList.addEventListener('click', (event) => {
+                if (event.target.classList.contains('supplement')) {
+                    console.log('Supplement clicked:', event.target.querySelector('h2').textContent);
+                }
+            });
+
+            // Second event listener: Hover effect on supplement image 
+            supplementList.addEventListener('mouseover', (event) => {
+                if (event.target.tagName === 'IMG') {
+                    event.target.style.opacity = '0.8';
+                }
+            });
+
+            // Third event listener: Hover effect on supplement image 
+            supplementList.addEventListener('mouseout', (event) => {
+                if (event.target.tagName === 'IMG') {
+                    event.target.style.opacity = '1';
+                }
+            });
+
             fetch('https://world.openfoodfacts.org/cgi/search.pl?search_terms=supplement&search_simple=1&action=process&json=1')
                 .then(response => response.json())
                 .then(data => {
-                    const supplementList = document.getElementById('supplement-list');
-
-                    // Extract supplement data from the response
                     const supplements = data.products;
-
-                    // Loop through the supplements and display them
                     supplements.forEach(supplement => {
                         const supplementName = supplement.product_name;
                         const supplementImageUrl = supplement.image_front_url;
-
-                        // Create HTML elements to display supplement information
                         const supplementElement = document.createElement('div');
                         supplementElement.classList.add('supplement');
                         supplementElement.innerHTML = `
                             <img src="${supplementImageUrl}" alt="${supplementName}">
                             <h2>${supplementName}</h2>
                         `;
-
-                        // Append the supplement element to the supplement list
                         supplementList.appendChild(supplementElement);
                     });
                 })
@@ -74,6 +88,7 @@
     </script>
 </body>
 </html>
+
 
 
 
