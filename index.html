@@ -5,45 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supplements Viewer</title>
     <style>
-       /* Your CSS styles here */
+        /* CSS styles  */
+        body {
+            font-family: fantasy, sans-serif;
+            background-color: blue;
+            margin: 10;
+            padding: 5;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .supplement {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .supplement img {
+            width: 50px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .supplement h2 {
+            margin: 0;
+        }
     </style>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Supplements Open Food Viewer</h1>
-    <div id="product-list"></div>
-    <hr>
-    <!-- Form for adding a new supplement -->
-    <form id="add-supplement-form">
-        <label for="supplement-name">Supplement Name:</label>
-        <input type="text" id="supplement-name" placeholder="Enter supplement name" required>
-        <button type="submit">Add Supplement</button>
-    </form>
+    <h1>Supplements Viewer</h1>
+    <div id="supplement-list"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('https://world.openfoodfacts.org/api/v0/product/737628064502.json')
+            fetch('https://world.openfoodfacts.org/cgi/search.pl?search_terms=supplement&search_simple=1&action=process&json=1')
                 .then(response => response.json())
                 .then(data => {
-                    const productList = document.getElementById('product-list');
-                    const productName = data.product.product_name;
-                    const productImageUrl = data.product.image_front_url;
+                    const supplementList = document.getElementById('supplement-list');
 
-                    const productElement = document.createElement('div');
-                    productElement.classList.add('product');
-                    productElement.innerHTML = `
-                        <img src="${productImageUrl}" alt="${productName}">
-                        <h2>${productName}</h2>
-                    `;
-                    productList.appendChild(productElement);
+                    // Extract supplement data from the response
+                    const supplements = data.products;
+
+                    // Loop through the supplements and display them
+                    supplements.forEach(supplement => {
+                        const supplementName = supplement.product_name;
+                        const supplementImageUrl = supplement.image_front_url;
+
+                        // Create HTML elements to display supplement information
+                        const supplementElement = document.createElement('div');
+                        supplementElement.classList.add('supplement');
+                        supplementElement.innerHTML = `
+                            <img src="${supplementImageUrl}" alt="${supplementName}">
+                            <h2>${supplementName}</h2>
+                        `;
+
+                        // Append the supplement element to the supplement list
+                        supplementList.appendChild(supplementElement);
+                    });
                 })
                 .catch(error => {
-                    console.error('Error fetching product data:', error);
+                    console.error('Error fetching supplement data:', error);
                 });
         });
     </script>
 </body>
 </html>
+
+
 
 
 
