@@ -23,7 +23,7 @@ Setup Instructions:
 Clone the repository to local machine: git clone git@github.com:CISSEJACKA/PHASE--1-PROJECT.git
 Navigate to the project directory
 Open Food Facts API
-Install any dependencies required to make API requests: npm install
+Install any dependencies required to make API requests: http-server
 Open index.html in your web browser to use the application.
 
 Usage:

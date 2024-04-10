@@ -5,41 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supplements Viewer</title>
     <style>
-       body {
-    font-family: 'Times New Roman', Times, serif;
-    background-color: gold;
-    padding: 30px;
-}
-form {
-    margin-bottom: 30px;
-}
-label {
-    font-weight: bold;
-    margin-right: 5px;
-}
-input[type="text"] {
-    padding: 5px;
-    width: 200px;
-}
-button {
-    padding: 10px 5px;
-    background-color: aqua;
-    color: blue;
-    border: none;
-    cursor: pointer;
-}
-ul {
-    list-style-type: square;
-    padding: 0px;
-}
-li {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center; 
-}
-
- 
-
+       /* Your CSS styles here */
     </style>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -47,51 +13,15 @@ li {
     <h1>Supplements Open Food Viewer</h1>
     <div id="product-list"></div>
     <hr>
-     <!-- Form for adding a new supplement -->
-     <form id="add-supplement-form">
+    <!-- Form for adding a new supplement -->
+    <form id="add-supplement-form">
         <label for="supplement-name">Supplement Name:</label>
         <input type="text" id="supplement-name" placeholder="Enter supplement name" required>
         <button type="submit">Add Supplement</button>
     </form>
 
-    <!-- List of supplements -->
-    <ul id="supplement-list">
-        <!-- Example supplement items -->
-        <li>Vitamin C</li>
-        <li>Fish Oil</li>
-        <li>Probiotics</li>
-        <li>Calcium</li>
-        <li>Magnesium</li>
-        <li>Zinc</li>
-        <li>Vitamin D3</li>
-       <li>Iron</li>
-       <li>B12</li>
-    </ul>
-
     <script>
-
-const fetch = require('node-fetch');
-
-function fetchAndDisplayProductData() {
-    fetch('https://world.openfoodfacts.org/api/v0/product/737628064502.json')
-        .then(response => response.json())
-        .then(data => {
-            const productName = data.product.product_name;
-            const productImageUrl = data.product.image_front_url;
-
-            console.log('Product Name:', productName);
-            console.log('Product Image URL:', productImageUrl);
-        })
-        .catch(error => {
-            console.error('Error fetching product data:', error);
-        });
-}
-
-fetchAndDisplayProductData(); // Call the function directly since there's no DOMContentLoaded event in Node.js
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             fetch('https://world.openfoodfacts.org/api/v0/product/737628064502.json')
                 .then(response => response.json())
                 .then(data => {
@@ -111,14 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('Error fetching product data:', error);
                 });
         });
-</script>
-
     </script>
-    <header>
-        
-    </header>
-    
 </body>
 </html>
+
+
 
 
