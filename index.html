@@ -3,47 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wellness and Nutrition - Supplements Tracker</title>
+    <title>Supplements Viewer</title>
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: gold;
-            padding: 30px;
-        }
-        form {
-            margin-bottom: 30px;
-        }
-        label {
-            font-weight: bold;
-            margin-right: 5px;
+       body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: gold;
+    padding: 30px;
+}
+form {
+    margin-bottom: 30px;
+}
+label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+input[type="text"] {
+    padding: 5px;
+    width: 200px;
+}
+button {
+    padding: 10px 5px;
+    background-color: aqua;
+    color: blue;
+    border: none;
+    cursor: pointer;
+}
+ul {
+    list-style-type: square;
+    padding: 0px;
+}
+li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center; 
+}
 
-        }
-        input [type="text"]{
-padding: 5px;
-width: 200px;
-        }
-        button {
-            padding: 10px 5px;
-            background-color: aqua;
-            color: blue;
-            border: none;
-            cursor: pointer;
-        }
-        ul {
-            list-style-type: square;
-            padding: 0px;
-        }
-    li {
-        margin-bottom: 10px;
-        display: flex;
-        align-items: start;
-    }
+ 
 
     </style>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Wellness and Nutrition - Supplements Tracker</h1>
+    <h1>Supplements Open Food Viewer</h1>
+    <div id="product-list"></div>
     <hr>
      <!-- Form for adding a new supplement -->
      <form id="add-supplement-form">
@@ -58,10 +60,65 @@ width: 200px;
         <li>Vitamin C</li>
         <li>Fish Oil</li>
         <li>Probiotics</li>
+        <li>Calcium</li>
+        <li>Magnesium</li>
+        <li>Zinc</li>
+        <li>Vitamin D3</li>
+       <li>Iron</li>
+       <li>B12</li>
     </ul>
+
+    <script>
+
+const fetch = require('node-fetch');
+
+function fetchAndDisplayProductData() {
+    fetch('https://world.openfoodfacts.org/api/v0/product/737628064502.json')
+        .then(response => response.json())
+        .then(data => {
+            const productName = data.product.product_name;
+            const productImageUrl = data.product.image_front_url;
+
+            console.log('Product Name:', productName);
+            console.log('Product Image URL:', productImageUrl);
+        })
+        .catch(error => {
+            console.error('Error fetching product data:', error);
+        });
+}
+
+fetchAndDisplayProductData(); // Call the function directly since there's no DOMContentLoaded event in Node.js
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+            fetch('https://world.openfoodfacts.org/api/v0/product/737628064502.json')
+                .then(response => response.json())
+                .then(data => {
+                    const productList = document.getElementById('product-list');
+                    const productName = data.product.product_name;
+                    const productImageUrl = data.product.image_front_url;
+
+                    const productElement = document.createElement('div');
+                    productElement.classList.add('product');
+                    productElement.innerHTML = `
+                        <img src="${productImageUrl}" alt="${productName}">
+                        <h2>${productName}</h2>
+                    `;
+                    productList.appendChild(productElement);
+                })
+                .catch(error => {
+                    console.error('Error fetching product data:', error);
+                });
+        });
+</script>
+
+    </script>
     <header>
         
     </header>
-    <script src="script.js"></script>
+    
 </body>
 </html>
+
+
