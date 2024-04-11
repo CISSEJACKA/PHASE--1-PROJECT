@@ -5,8 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supplements Viewer</title>
     <style>
-        /* CSS styles  */
-        /* Your CSS styles here */
+        
+        /* CSS styles begin here */
+        body {
+            font-family: monospace, sans-serif;
+            background-color: chartreuse;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #supplement-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+        }
+
+        .supplement {
+            background-color: darkorange;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .supplement img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .supplement h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .supplement button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            background-color: green;
+            color: darkred;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .supplement button:hover {
+            background-color: gold;
+        }
+
+        /* CSS styles end here */
     </style>
 </head>
 <body>
