@@ -6,88 +6,85 @@
     <title>Supplements Viewer</title>
     <style>
         /* CSS styles  */
-        body {
-            font-family: fantasy, sans-serif;
-            background-color: blue;
-            margin: 10;
-            padding: 5;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .supplement {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: lightcoral;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .supplement img {
-            width: 50px;
-            height: auto;
-            margin-right: 20px;
-        }
-        .supplement h2 {
-            margin: 0;
-        }
+        /* Your CSS styles here */
     </style>
 </head>
 <body>
     <h1>Supplements Viewer</h1>
     <div id="supplement-list"></div>
 
+    <form id="add-supplement-form">
+        <label for="supplement-name">Supplement Name:</label>
+        <input type="text" id="supplement-name" placeholder="Enter supplement name" required>
+        <button type="submit">Add Supplement</button>
+    </form>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const supplementList = document.getElementById('supplement-list');
 
-            // First event listener: Click event on supplement element
-            supplementList.addEventListener('click', (event) => {
-                if (event.target.classList.contains('supplement')) {
-                    console.log('Supplement clicked:', event.target.querySelector('h2').textContent);
-                }
-            });
-
-            // Second event listener: Hover effect on supplement image 
-            supplementList.addEventListener('mouseover', (event) => {
-                if (event.target.tagName === 'IMG') {
-                    event.target.style.opacity = '0.8';
-                }
-            });
-
-            // Third event listener: Hover effect on supplement image 
-            supplementList.addEventListener('mouseout', (event) => {
-                if (event.target.tagName === 'IMG') {
-                    event.target.style.opacity = '1';
-                }
-            });
-
-            fetch('https://world.openfoodfacts.org/cgi/search.pl?search_terms=supplement&search_simple=1&action=process&json=1')
-                .then(response => response.json())
-                .then(data => {
-                    const supplements = data.products;
-                    supplements.forEach(supplement => {
-                        const supplementName = supplement.product_name;
-                        const supplementImageUrl = supplement.image_front_url;
-                        const supplementElement = document.createElement('div');
-                        supplementElement.classList.add('supplement');
-                        supplementElement.innerHTML = `
-                            <img src="${supplementImageUrl}" alt="${supplementName}">
-                            <h2>${supplementName}</h2>
-                        `;
-                        supplementList.appendChild(supplementElement);
+            // Function to fetch supplements from the API
+            function fetchSupplements() {
+                fetch('https://world.openfoodfacts.org/cgi/search.pl?search_terms=supplement&search_simple=1&action=process&json=1')
+                    .then(response => response.json())
+                    .then(data => {
+                        const supplements = data.products;
+                        supplements.forEach(supplement => {
+                            renderSupplement(supplement);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching supplement data:', error);
                     });
-                })
-                .catch(error => {
-                    console.error('Error fetching supplement data:', error);
+            }
+
+            // Function to render a supplement
+            function renderSupplement(supplement) {
+                const supplementElement = document.createElement('div');
+                supplementElement.classList.add('supplement');
+                supplementElement.innerHTML = `
+                    <img src="${supplement.image_front_url}" alt="${supplement.product_name}">
+                    <h2>${supplement.product_name}</h2>
+                    <button class="update-btn">Update</button>
+                    <button class="delete-btn">Delete</button>
+                `;
+                supplementList.appendChild(supplementElement);
+
+                // Event listener for delete button
+                supplementElement.querySelector('.delete-btn').addEventListener('click', () => {
+                    // Implement delete functionality here
+                    supplementElement.remove(); // For demonstration purposes, remove the supplement from the UI
                 });
+
+                // Event listener for update button
+                supplementElement.querySelector('.update-btn').addEventListener('click', () => {
+                    const newName = prompt('Enter new name for the supplement:');
+                    if (newName) {
+                        // Implement update functionality here
+                        supplementElement.querySelector('h2').textContent = newName; // For demonstration purposes, update the name in the UI
+                    }
+                });
+            }
+
+            // Event listener for add supplement form submission
+            document.getElementById('add-supplement-form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const newName = document.getElementById('supplement-name').value;
+                if (newName) {
+                    // Implement add functionality here
+                    const newSupplement = { product_name: newName }; // For demonstration purposes, create a new supplement object
+                    renderSupplement(newSupplement); // For demonstration purposes, render the new supplement in the UI
+                    document.getElementById('supplement-name').value = ''; // Clear the input field
+                }
+            });
+
+            // Initial fetch of supplements
+            fetchSupplements();
         });
     </script>
 </body>
 </html>
+
 
 
 
