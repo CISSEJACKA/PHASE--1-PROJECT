@@ -35,7 +35,7 @@ Install http-server
 
 
 #Additional Resources
-Open Food Facts API
+Open Food Facts API -  https://world.openfoodfacts.org/data
 Chrome Web Browser
 
 
