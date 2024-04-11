@@ -34,6 +34,11 @@ Install http-server
 - To delete a supplement, hover over the supplement's name in the list. A delete icon will appear next to the name. Click on the delete icon to remove the supplement from the list.
 
 
+#Additional Resources
+Open Food Facts API
+Chrome Web Browser
+
+
 #Credits:
 This project was created as part of Moringa School's JavaScript course.
 Special thanks to Technical Mentor , Kelvin Muriithi for guidance and support.
