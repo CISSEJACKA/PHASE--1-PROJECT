@@ -1,5 +1,7 @@
 #Project Name: Supplements Viewer
 
+Submitted Date : 11/04/24
+
 #Description:
 The Supplements Viewer is a single-page application that allows users to view information about various supplements. It fetches data from the Open Food Facts API and displays it dynamically on the webpage.
 
